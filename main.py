@@ -37,8 +37,12 @@ def createDirectoryJson(fichero: Fichero, name: str, path: str):
 
     fichero.guardar_valor(name, path)
     print(f"{name} registered as {path}")
+
+def listPaths(fichero: Fichero):
+    for key, value in fichero.listar_valores().items():
+        print(f"{key} -> {value}")
     
-def process_args(path_to_dir: str, name: str, path: str):
+def process_args(path_to_dir: str, name: str, path: str, list_paths: bool):
 
     fichero = Fichero('config/directories.json')
 
@@ -48,7 +52,9 @@ def process_args(path_to_dir: str, name: str, path: str):
 
     if name and path:
         createDirectoryJson(fichero, name, path)
-    
+
+    if list_paths:
+        listPaths(fichero)
 
 
 def cli() -> argparse.Namespace:
@@ -93,4 +99,4 @@ if __name__ == '__main__':
 
     args = cli()
 
-    process_args(args.change, args.name, args.path)
+    process_args(args.change, args.name, args.path, args.list)
