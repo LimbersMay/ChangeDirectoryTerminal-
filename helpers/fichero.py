@@ -8,7 +8,7 @@ class Fichero:
         self.ruta = ruta
         self.cargar = None
 
-    def guardar_informacion(self, clave, valor):
+    def guardar_valor(self, clave, valor):
         # Abrimos el fichero y cargamos la información en formato json
         with open(self.ruta, "r") as fichero:
             self.cargar = json.loads(fichero.read())
@@ -28,14 +28,14 @@ class Fichero:
         # Devolvemos la información solicitada
         return self.cargar[clave]
 
-    def obtener_elementos(self):
+    def obtener_valores(self):
         # Abrimos el fichero y cargamos la información en formato json
         with open(self.ruta, "r") as fichero:
             self.cargar = json.loads(fichero.read())
 
         return self.cargar
 
-    def eliminar_elemento(self, clave):
+    def eliminar_valor(self, clave):
         # Cargamos el fichero
         with open(self.ruta, "r") as fichero:
             self.cargar = json.loads(fichero.read())
