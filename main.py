@@ -20,21 +20,25 @@ def changeDirectory(fichero: Fichero, path: str):
     except KeyError:
         pass
 
-    if Path(path_to_dir).exists():
-        os.chdir(path_to_dir)
-        os.system("/usr/bin/zsh")
+    if not Path(path).exists():
+        print(f"{path} does not exist.")
+        return
 
-    if not Path(path_to_dir).exists():
-        print(f"{path_to_dir} does not exist.")
-        sys.exit(1)
+    os.chdir(path_to_dir)
+    os.system("/usr/bin/zsh")
 
-def process_args(path_to_dir: Path):
+
+    
+def process_args(path_to_dir: Path, name: str, path: str):
 
     fichero = Fichero('config/directories.json')
 
     if path_to_dir:
         changeDirectory(fichero, path_to_dir)
         return
+
+    print(name, path)
+    
 
 
 def cli() -> argparse.Namespace:
@@ -79,4 +83,4 @@ if __name__ == '__main__':
 
     args = cli()
 
-    process_args(args.change)
+    process_args(args.change, args.name, args.path)
