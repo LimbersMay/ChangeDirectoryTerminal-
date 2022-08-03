@@ -1,4 +1,4 @@
-# ChangeDirectoryTerminal-
+# ChangeDirectoryTerminal
 Programa para cambiar de directorio dinámicamente en la terminal, de los directorios que nosotros registremos
 El programa puede ser registrado en el path para llamarlo dinámicamente sin tener que escribir el directorio completo 
 
