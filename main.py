@@ -45,7 +45,7 @@ def listPaths(fichero: Fichero):
 def process_args(path_to_dir: str, name: str, path: str, list_paths: bool):
 
     fichero = Fichero('config/directories.json')
-
+    
     if path_to_dir:
         changeDirectory(fichero, path_to_dir)
 
