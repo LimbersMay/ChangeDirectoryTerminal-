@@ -11,12 +11,17 @@ Cambiarse a un directorio sin registrar: `python main.py --switch='ruta'`
 
 Registrar directorio: `python main.py --name='nombre del directorio' --path='ruta del directorio'`
 
+Eliminar un directorio: `python main.py --delete='nombre del directorio registrado'`
+
 Listar directorios guardados: ` python main.py --list`
 
 ## Capturas de pantalla
 
 ## Pantalla de ayuda
-![image](https://user-images.githubusercontent.com/66845300/182704869-6cf23f44-6e56-4dec-b300-c059fde61aa0.png)
+![image](https://user-images.githubusercontent.com/66845300/182707114-bee0bc7d-00e0-46e0-bcdb-b725fbc08c4e.png)
+
+## Cambiarse a un nuevo directorio
+![image](https://user-images.githubusercontent.com/66845300/182705690-d16b19e5-2091-4720-8311-140096c2f4ab.png)
 
 ## Registrar un directorio nuevo
 ![image](https://user-images.githubusercontent.com/66845300/182697561-146426a9-b842-4770-862d-0d97e291ceca.png)
@@ -24,5 +29,6 @@ Listar directorios guardados: ` python main.py --list`
 ## Listar todos los directorios
 ![image](https://user-images.githubusercontent.com/66845300/182697662-d860e2b4-8e51-479b-a0d2-1952bbe73e1d.png)
 
-## Cambiarse a un nuevo directorio
-![image](https://user-images.githubusercontent.com/66845300/182705690-d16b19e5-2091-4720-8311-140096c2f4ab.png)
+## Eliminar directorio
+![image](https://user-images.githubusercontent.com/66845300/182707458-b2a48996-1485-4128-9828-41795a665588.png)
+
