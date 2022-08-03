@@ -28,7 +28,7 @@ class Fichero:
         # Devolvemos la información solicitada
         return self.cargar[clave]
 
-    def obtener_valores(self):
+    def listar_valores(self):
         # Abrimos el fichero y cargamos la información en formato json
         with open(self.ruta, "r") as fichero:
             self.cargar = json.loads(fichero.read())
