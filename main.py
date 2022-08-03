@@ -42,7 +42,11 @@ def listPaths(fichero: Fichero):
     for key, value in fichero.listar_valores().items():
         print(f"{key} -> {value}")
     
-def process_args(path_to_switch: str, name: str, path: str, list_paths: bool):
+def deletePath(fichero: Fichero, name: str):
+    fichero.eliminar_valor(name)
+    print(f"{name} deleted.")
+
+def process_args(path_to_switch: str, name: str, path: str, list_paths: bool, delete: str):
 
     fichero = Fichero(Path(__file__).parent / "config/directories.json")
 
@@ -55,6 +59,9 @@ def process_args(path_to_switch: str, name: str, path: str, list_paths: bool):
     if list_paths:
         listPaths(fichero)
 
+    if delete:
+        deletePath(fichero, delete)
+        
 
 def cli() -> argparse.Namespace:
 
@@ -82,6 +89,12 @@ def cli() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        '-d', '--delete',
+        type=str,
+        help='Name of the path to delete.'
+    )
+
+    parser.add_argument(
         '-l', '--list',
         default=False,
         action='store_true',
@@ -98,4 +111,4 @@ if __name__ == '__main__':
 
     args = cli()
 
-    process_args(args.switch, args.name, args.path, args.list)
+    process_args(args.switch, args.name, args.path, args.list, args.delete)
