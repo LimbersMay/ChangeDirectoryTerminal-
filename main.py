@@ -11,9 +11,9 @@ def changeDirectory(fichero: Fichero, path: str):
 
     # Check if the path exists in our list of paths
     try:
-        path = fichero.obtener_valor(path_to_dir)
+        path = fichero.obtener_valor(path)
         os.chdir(path)
-        os.system("usr/bin/zsh")
+        os.system("/usr/bin/zsh")
 
         return
 
@@ -24,12 +24,21 @@ def changeDirectory(fichero: Fichero, path: str):
         print(f"{path} does not exist.")
         return
 
-    os.chdir(path_to_dir)
+    os.chdir(path)
     os.system("/usr/bin/zsh")
 
+def createDirectoryJson(fichero: Fichero, name: str, path: str):
 
+    # Check if the path exists
+    if not Path(path).exists():
+        print(f"{path} does not exist.")
+
+        return
+
+    fichero.guardar_valor(name, path)
+    print(f"{name} registered as {path}")
     
-def process_args(path_to_dir: Path, name: str, path: str):
+def process_args(path_to_dir: str, name: str, path: str):
 
     fichero = Fichero('config/directories.json')
 
@@ -37,7 +46,8 @@ def process_args(path_to_dir: Path, name: str, path: str):
         changeDirectory(fichero, path_to_dir)
         return
 
-    print(name, path)
+    if name and path:
+        createDirectoryJson(fichero, name, path)
     
 
 
