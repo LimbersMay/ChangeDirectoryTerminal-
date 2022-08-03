@@ -6,7 +6,7 @@ from pathlib import Path
 from helpers.fichero import Fichero
 
 
-def changeDirectory(fichero: Fichero, path: str):
+def switchDirectory(fichero: Fichero, path: str):
     # If we received the path
 
     # Check if the path exists in our list of paths
@@ -42,12 +42,12 @@ def listPaths(fichero: Fichero):
     for key, value in fichero.listar_valores().items():
         print(f"{key} -> {value}")
     
-def process_args(path_to_dir: str, name: str, path: str, list_paths: bool):
+def process_args(path_to_switch: str, name: str, path: str, list_paths: bool):
 
-    fichero = Fichero("config/directories.json")
+    fichero = Fichero(Path(__file__).parent / "config/directories.json")
 
-    if path_to_dir:
-        changeDirectory(fichero, path_to_dir)
+    if path_to_switch:
+        switchDirectory(fichero, path_to_switch)
 
     if name and path:
         createDirectoryJson(fichero, name, path)
@@ -64,9 +64,9 @@ def cli() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        '-c', '--change',
+        '-s', '--switch',
         type=str,
-        help='Path to change to.',
+        help='Path to switch to.',
     )
 
     parser.add_argument(
@@ -98,4 +98,4 @@ if __name__ == '__main__':
 
     args = cli()
 
-    process_args(args.change, args.name, args.path, args.list)
+    process_args(args.switch, args.name, args.path, args.list)
