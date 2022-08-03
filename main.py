@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 from helpers.fichero import Fichero
 
+user_shell = os.environ['SHELL']
 
 def switchDirectory(fichero: Fichero, path: str):
     # If we received the path
@@ -13,7 +14,7 @@ def switchDirectory(fichero: Fichero, path: str):
     try:
         path = fichero.obtener_valor(path)
         os.chdir(path)
-        os.system("/usr/bin/zsh")
+        os.system(user_shell)
 
         return
 
@@ -25,7 +26,7 @@ def switchDirectory(fichero: Fichero, path: str):
         return
 
     os.chdir(path)
-    os.system("/usr/bin/zsh")
+    os.system(user_shell)
 
 def createDirectoryJson(fichero: Fichero, name: str, path: str):
 
