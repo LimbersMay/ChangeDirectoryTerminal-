@@ -7,7 +7,7 @@ from helpers.fichero import Fichero
 
 user_shell = os.environ['SHELL']
 
-def switchDirectory(fichero: Fichero, path: str):
+def switch_directory(fichero: Fichero, path: str):
     # If we received the path
 
     # Check if the path exists in our list of paths
@@ -28,7 +28,7 @@ def switchDirectory(fichero: Fichero, path: str):
     os.chdir(path)
     os.system(user_shell)
 
-def createDirectoryJson(fichero: Fichero, name: str, path: str):
+def create_path_json(fichero: Fichero, name: str, path: str):
 
     # Check if the path exists
     if not Path(path).exists():
@@ -39,29 +39,46 @@ def createDirectoryJson(fichero: Fichero, name: str, path: str):
     fichero.guardar_valor(name, path)
     print(f"{name} registered as {path}")
 
-def listPaths(fichero: Fichero):
+def list_paths(fichero: Fichero):
     for key, value in fichero.listar_valores().items():
         print(f"{key} -> {value}")
     
-def deletePath(fichero: Fichero, name: str):
+def delete_path(fichero: Fichero, name: str):
     fichero.eliminar_valor(name)
     print(f"{name} deleted.")
 
-def process_args(path_to_switch: str, name: str, path: str, list_paths: bool, delete: str):
+def save_actual_path(fichero: Fichero):
+    actual_path = os.getcwd()
+    fichero.guardar_valor('last_path', actual_path)
+    print(f"{actual_path} registered")
+
+def move_to_last_path(fichero: Fichero):
+    last_path = fichero.obtener_valor('last_path')
+
+    os.chdir(last_path)
+    os.system(user_shell)
+
+def process_args(path_to_switch: str, name: str, path: str, list_paths: bool, delete: str, register: bool, move: bool):
 
     fichero = Fichero(Path(__file__).parent / "config/directories.json")
 
     if path_to_switch:
-        switchDirectory(fichero, path_to_switch)
+        switch_directory(fichero, path_to_switch)
 
     if name and path:
-        createDirectoryJson(fichero, name, path)
+        create_path_json(fichero, name, path)
 
     if list_paths:
-        listPaths(fichero)
+        list_paths(fichero)
 
     if delete:
-        deletePath(fichero, delete)
+        delete_path(fichero, delete)
+
+    if register:
+        save_actual_path(fichero)
+
+    if move:
+        move_to_last_path(fichero)
         
 
 def cli() -> argparse.Namespace:
@@ -102,6 +119,20 @@ def cli() -> argparse.Namespace:
         help='List all registered paths.'
     )
 
+    parser.add_argument(
+        '-r', '--register',
+        default=False,
+        action='store_true',
+        help='Register the actual path'
+    )
+
+    parser.add_argument(
+        '-m', '--move',
+        default=False,
+        action='store_true',
+        help='Move to the last path registered'
+    )
+
     return parser.parse_args()
 
 
@@ -112,4 +143,4 @@ if __name__ == '__main__':
 
     args = cli()
 
-    process_args(args.switch, args.name, args.path, args.list, args.delete)
+    process_args(args.switch, args.name, args.path, args.list, args.delete, args.register, args.move)
