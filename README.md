@@ -15,6 +15,10 @@ Eliminar un directorio: `python main.py --delete='nombre del directorio registra
 
 Listar directorios guardados: ` python main.py --list`
 
+Registrar el último directorio: `python main.py --register`
+
+Moverte al último directorio guardado con el comando --register: `python main.py --move`
+
 ## Capturas de pantalla
 
 ## Pantalla de ayuda
