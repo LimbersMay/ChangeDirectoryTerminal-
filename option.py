@@ -1,6 +1,6 @@
 class Option:
     
-    def init(self, switch, name, path, delete, list_paths, register):
+    def __init__(self, switch, name, path, delete, list_paths, register):
         self.switch = switch # Path to switch to
         self.name = name # Name to the path to register
         self.path = path # Path to register
