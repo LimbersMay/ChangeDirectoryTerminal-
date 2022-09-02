@@ -58,7 +58,7 @@ def move_to_last_path(fichero: Fichero):
     os.chdir(last_path)
     os.system(user_shell)
 
-def process_args(path_to_switch: str, name: str, path: str, list_paths: bool, delete: str, register: bool, move: bool):
+def process_args(path_to_switch: str, name: str, path: str, list_register: bool, delete: str, register: bool, move: bool):
 
     fichero = Fichero(Path(__file__).parent / "config/directories.json")
 
@@ -68,7 +68,7 @@ def process_args(path_to_switch: str, name: str, path: str, list_paths: bool, de
     if name and path:
         create_path_json(fichero, name, path)
 
-    if list_paths:
+    if list_register:
         list_paths(fichero)
 
     if delete:
