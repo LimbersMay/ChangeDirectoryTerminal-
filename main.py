@@ -36,8 +36,10 @@ def create_path_json(fichero: Fichero, name: str, path: str):
 
         return
 
-    fichero.guardar_valor(name, path)
-    print(f"{name} registered as {path}")
+    absolute_path = os.path.abspath(path)
+
+    fichero.guardar_valor(name, absolute_path)
+    print(f"{name} registered as {absolute_path}")
 
 def list_paths(fichero: Fichero):
     for key, value in fichero.listar_valores().items():
