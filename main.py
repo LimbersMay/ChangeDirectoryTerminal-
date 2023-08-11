@@ -1,25 +1,26 @@
 #!/usr/bin/python
-import os
 import argparse
-import sys
+import os
 from pathlib import Path
-from helpers.fichero import Fichero
+
+from helpers.user_repository import UserRepository
 
 user_shell = os.environ['SHELL']
 
-def switch_directory(fichero: Fichero, path: str):
+
+def switch_directory(user_repository: UserRepository, path: str):
     # If we received the path
 
     # Check if the path exists in our list of paths
     try:
-        path = fichero.obtener_valor(path)
+        path = user_repository.find_one(path)
         os.chdir(path)
         os.system(user_shell)
 
         return
 
     except KeyError:
-        pass
+        print(f"Error trying to find {path} in the list of paths.")
 
     if not Path(path).exists():
         print(f"{path} does not exist.")
@@ -28,8 +29,8 @@ def switch_directory(fichero: Fichero, path: str):
     os.chdir(path)
     os.system(user_shell)
 
-def create_path_json(fichero: Fichero, name: str, path: str):
 
+def create_path_json(user_repository: UserRepository, name: str, path: str):
     # Check if the path exists
     if not Path(path).exists():
         print(f"{path} does not exist.")
@@ -38,53 +39,58 @@ def create_path_json(fichero: Fichero, name: str, path: str):
 
     absolute_path = os.path.abspath(path)
 
-    fichero.guardar_valor(name, absolute_path)
+    user_repository.save(name, absolute_path)
     print(f"{name} registered as {absolute_path}")
 
-def list_paths(fichero: Fichero):
-    for key, value in fichero.listar_valores().items():
+
+def list_paths(user_repository: UserRepository):
+    for key, value in user_repository.find_all().items():
         print(f"{key} -> {value}")
-    
-def delete_path(fichero: Fichero, name: str):
-    fichero.eliminar_valor(name)
+
+
+def delete_path(user_repository: UserRepository, name: str):
+    user_repository.delete(name)
     print(f"{name} deleted.")
 
-def save_actual_path(fichero: Fichero):
+
+def save_actual_path(user_repository: UserRepository):
     actual_path = os.getcwd()
-    fichero.guardar_valor('last_path', actual_path)
+    user_repository.save('last_path', actual_path)
     print(f"{actual_path} registered")
 
-def move_to_last_path(fichero: Fichero):
-    last_path = fichero.obtener_valor('last_path')
+
+def move_to_last_path(user_repository: UserRepository):
+    last_path = user_repository.find_one('last_path')
 
     os.chdir(last_path)
     os.system(user_shell)
 
-def process_args(path_to_switch: str, name: str, path: str, list_register: bool, delete: str, register: bool, move: bool):
 
-    fichero = Fichero(Path(__file__).parent / "config/directories.json")
+def process_args(path_to_switch: str, name: str, path: str, list_register: bool, delete: str, register: bool,
+                 move: bool):
+
+    user_repository = UserRepository(Path(__file__).parent / "config/directories.json")
 
     if path_to_switch:
-        switch_directory(fichero, path_to_switch)
+        switch_directory(user_repository, path_to_switch)
 
     if name and path:
-        create_path_json(fichero, name, path)
+        create_path_json(user_repository, name, path)
 
     if list_register:
-        list_paths(fichero)
+        list_paths(user_repository)
 
     if delete:
-        delete_path(fichero, delete)
+        delete_path(user_repository, delete)
 
     if register:
-        save_actual_path(fichero)
+        save_actual_path(user_repository)
 
     if move:
-        move_to_last_path(fichero)
-        
+        move_to_last_path(user_repository)
+
 
 def cli() -> argparse.Namespace:
-
     parser = argparse.ArgumentParser(
         prog='change-dir',
         description='Change directory to the specified path.',
@@ -97,9 +103,9 @@ def cli() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        '-n', '--name',
+        '-n', '--alias',
         type=str,
-        help='Name of the path to register.'
+        help='Alias of the path to register.'
     )
 
     parser.add_argument(
@@ -125,11 +131,11 @@ def cli() -> argparse.Namespace:
         '-r', '--register',
         default=False,
         action='store_true',
-        help='Register the actual path'
+        help='Register a path. Register the current path as last if no path is specified'
     )
 
     parser.add_argument(
-        '-m', '--move',
+        '-g', '--goto-last',
         default=False,
         action='store_true',
         help='Move to the last path registered'
