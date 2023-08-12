@@ -31,7 +31,7 @@ And it's a waste of time to do it manually every time. So I created this script 
 git clone https://github.com/LimbersMay/changeTerminalDirectory.git
 ```
 
-Rename the file **example.directories.json** to **directories.json** located in the folder **./config**.
+Rename the file **example.directories.json** to **directories.json** located in the folder **/config**.
 
 ### Linux and Mac
 If you want to use the script without typing the full path, you have to add the script to the **PATH** variable 
