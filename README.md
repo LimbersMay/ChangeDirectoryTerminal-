@@ -31,13 +31,20 @@ And it's a waste of time to do it manually every time. So I created this script 
 git clone https://github.com/LimbersMay/changeTerminalDirectory.git
 ```
 
+Rename the file **example.directories.json** to **directories.json** located in the folder **./config**.
+
 ### Linux and Mac
 If you want to use the script without typing the full path, you have to add the script to the **PATH** variable 
 and config an alias.
 
 Usually the **PATH** variable is located in the file **.bashrc**, **.bash_profile** or **.zshrc**.
 
-Now you can use the script in every directory by typing **changeTerminalDirectory** --option. 
+Now you can use the script in every directory by typing **changeTerminalDirectory** --option.
+
+Example of how would look like the alias in the file **.bashrc**:
+```sh
+alias switchDir="python3 /path/to/changeTerminalDirectory/main.py"
+```
 
 ### Usage
 
@@ -70,3 +77,28 @@ options:
 * **-d** or **--delete** alias : Delete the path registered with the given alias.
 * **-l** or **--list** : List all registered alias with their path.
 * **-g** or **--goto-last** : Switch to the path registered with the alias **last_path**.
+
+### Examples
+```sh
+python main.py -r -a my_project
+```
+
+```sh
+python main.py -r /path/to/my_project -a my_project
+```
+```
+python main.py --register /path/to/my_project
+```
+
+```sh
+python main.py --switch my_project
+```
+```sh
+python main.py --delete my_project
+```
+```sh
+python main.py --list
+```
+```sh
+python main.py --goto-last
+```
