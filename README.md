@@ -1,38 +1,104 @@
-# ChangeDirectoryTerminal
-Programa para cambiar de directorio dinámicamente en la terminal, de los directorios que nosotros registremos
-El programa puede ser registrado en el path para llamarlo dinámicamente sin tener que escribir el directorio completo 
+# ChangeTerminalDirectory
 
-## Comandos
-Pantalla de ayuda: `python main.py --help`
+> Terminal directory changer for Windows, Linux and Mac.
 
-Cambiarse a un directorio guardado: `python main.py --switch='ruta guardada'`
+## Table of Contents
+* [General Info](#general-info)
+* [Technologies](#technologies)
+* [Prerequisites](#prerequisites)
+* [Setup](#setup)
+* [Usage](#usage)
+* [Description](#description)
 
-Cambiarse a un directorio sin registrar: `python main.py --switch='ruta'`
+## General Info
+This project is a simple terminal directory changer for Windows, Linux and Mac.
 
-Registrar directorio: `python main.py --name='nombre del directorio' --path='ruta del directorio'`
+Every time I open a terminal, I have to change manually to the directory of the project I'm working on.
+And it's a waste of time to do it manually every time. So I created this script to change the directory automatically.
 
-Eliminar un directorio: `python main.py --delete='nombre del directorio registrado'`
+## Technologies
+* Python 3.x
 
-Listar directorios guardados: ` python main.py --list`
+## Prerequisites
+* Python 3.x
+* pip
+* Git (optional)
+* Terminal (cmd, bash, etc.)
 
-Registrar el último directorio: `python main.py --register`
+## Setup
+1. Clone the repository
+```sh
+git clone https://github.com/LimbersMay/changeTerminalDirectory.git
+```
 
-Moverte al último directorio guardado con el comando --register: `python main.py --move`
+Rename the file **example.directories.json** to **directories.json** located in the folder **/config**.
 
-## Capturas de pantalla
+### Linux and Mac
+If you want to use the script without typing the full path, you have to add the script to the **PATH** variable 
+and config an alias.
 
-## Pantalla de ayuda
-![image](https://user-images.githubusercontent.com/66845300/182707114-bee0bc7d-00e0-46e0-bcdb-b725fbc08c4e.png)
+Usually the **PATH** variable is located in the file **.bashrc**, **.bash_profile** or **.zshrc**.
 
-## Cambiarse a un nuevo directorio
-![image](https://user-images.githubusercontent.com/66845300/182705690-d16b19e5-2091-4720-8311-140096c2f4ab.png)
+Now you can use the script in every directory by typing **changeTerminalDirectory** --option.
 
-## Registrar un directorio nuevo
-![image](https://user-images.githubusercontent.com/66845300/182697561-146426a9-b842-4770-862d-0d97e291ceca.png)
+Example of how would look like the alias in the file **.bashrc**:
+```sh
+alias switchDir="python3 /path/to/changeTerminalDirectory/main.py"
+```
 
-## Listar todos los directorios
-![image](https://user-images.githubusercontent.com/66845300/182697662-d860e2b4-8e51-479b-a0d2-1952bbe73e1d.png)
+### Usage
 
-## Eliminar directorio
-![image](https://user-images.githubusercontent.com/66845300/182707458-b2a48996-1485-4128-9828-41795a665588.png)
+```sh
+python main.py [-h] [-s ALIAS] [-a NAME] [-d ALIAS] [-l] [-r [PATH] [-g]
+```
 
+```sh
+usage: change-dir [-h] [-s ALIAS] [-a NAME] [-d ALIAS] [-l] [-r [PATH] [-g]
+
+options:
+  -h, --help            show this help message and exit
+  -s ALIAS, --switch ALIAS
+                        Path to switch to.
+  -a NAME, --alias NAME
+                        Alias of the path to register.
+  -d ALIAS, --delete ALIAS
+                        Name of the path to delete.
+  -l, --list            List all registered paths.
+  -r [PATH], --register [PATH]
+                        Register a path. If no path is given, the current path will be registered. If no alias is given, the alias will be last_path.
+  -g, --goto-last       Move to the alias registered as last_path
+```
+
+### Description
+* **-s** or **--switch** alias: Switch to the path registered with the given alias.
+* **-r** or **--register** name with  **-a** or **--alias** name : Register the path given with the alias given.
+* **-r** or **--register** with  **-a** or **--alias** name : Register the current path with the alias given.
+* **-r** or **--register** : Register the current path with the alias **last_path**.
+* **-d** or **--delete** alias : Delete the path registered with the given alias.
+* **-l** or **--list** : List all registered alias with their path.
+* **-g** or **--goto-last** : Switch to the path registered with the alias **last_path**.
+
+### Examples
+```sh
+python main.py -r -a my_project
+```
+
+```sh
+python main.py -r /path/to/my_project -a my_project
+```
+```
+python main.py --register /path/to/my_project
+```
+
+```sh
+python main.py --switch my_project
+```
+```sh
+python main.py --delete my_project
+```
+```sh
+python main.py --list
+```
+```sh
+python main.py --goto-last
+```
