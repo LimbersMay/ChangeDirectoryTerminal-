@@ -1,6 +1,6 @@
-# ChangeTerminalDirectory
+# ChangeTerminalWorkingDirectory
 
-> Terminal directory changer for Windows, Linux and Mac.
+> Terminal working directory changer for Windows, Linux and Mac.
 
 ## Table of Contents
 * [General Info](#general-info)
@@ -11,7 +11,7 @@
 * [Description](#description)
 
 ## General Info
-This project is a simple terminal directory changer for Windows, Linux and Mac.
+This project is a simple working directory changer CLI for Windows, Linux and Mac.
 
 Every time I open a terminal, I have to change manually to the directory of the project I'm working on.
 And it's a waste of time to do it manually every time. So I created this script to change the directory automatically.
