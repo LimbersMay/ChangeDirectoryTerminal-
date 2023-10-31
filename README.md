@@ -37,16 +37,22 @@ Rename the file **example.directories.json** to **directories.json** located in 
 If you want to use the script without typing the full path, you have to add the script to the **PATH** variable 
 and config an alias.
 
-Usually the **PATH** variable is located in the file **.bashrc**, **.bash_profile** or **.zshrc**.
+Usually the **PATH** variable is located in the file `.bashrc`, `.bash_profile` or `.zshrc` located in the home directory .
 
 Now you can use the script in every directory by typing **changeTerminalDirectory** --option.
 
-Example of how would look like the alias in the file **.bashrc**:
-```sh
+Example of how would look like the alias in the file `.bashrc`:
+```
 alias switchDir="python3 /path/to/changeTerminalDirectory/main.py"
 ```
 
-### Usage
+### Windows
+Add the script to the **PATH** variable.
+If you have git bash installed, you could create a .bashrc file in the home directory and add the alias there.
+
+Now you can use the script in every directory by typing **changeTerminalDirectory** --option.
+
+## Usage
 
 ```sh
 python main.py [-h] [-s ALIAS] [-a NAME] [-d ALIAS] [-l] [-r [PATH] [-g]
